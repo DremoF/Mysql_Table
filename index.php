@@ -21,15 +21,13 @@
         $link = mysqli_connect($host,$user,$password,$dbName)
           or die (mysqli_error($link));
           mysqli_query($link, "SET NAMES 'utf-8'");
-
-        // Сохранение нового
+        // добавление
         if (!empty($_POST)) {
-			    $name = $_POST['name'];
-			    $age = $_POST['age'];
-		      $salary = $_POST['salary'];
-
-			    $query = "INSERT INTO users SET name='$name', age='$age', salary='$salary'";
-			    mysqli_query($link, $query) or die(mysqli_error($link));
+          $name = $_POST["name"];
+          $age = $_POST["age"];
+        	$salary = $_POST["salary"];
+        	$query = "INSERT INTO users SET name='$name', age='$age', salary='$salary'";
+        	mysqli_query($link, $query) or die(mysqli_error($link));
         }
 
         // Удаление по id
@@ -63,11 +61,8 @@
       </tr>
     </table>
     <br>
-    <form action="" method="POST">
-	    <input name="name" placeholder="Введите Имя"><br>
-	    <input type="number" name="age" placeholder="Введите Возраст"><br>
-	    <input type="number" name="salary" placeholder="Введите Зарплату"><br>
-	    <input type="submit" value="Добавить">
+    <form action="adduser.php" method="POST">
+      <input type="submit" value="Добавить работника">
     </form>
     </tr>
   </body>
