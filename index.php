@@ -7,34 +7,19 @@
     rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   </head>
   <body>
-    <table class="table">
+    <table class="table table-bordered">
   <thead>
     <tr>
       <th scope="col">#</th>
       <th scope="col">Имя</th>
       <th scope="col">Возраст</th>
       <th scope="col">Зарплата</th>
+      <th scope="col">Стаж</th>
+      <th scope="col">Действие</th>
 
         <?php
-        $host = "localhost";
-        $user = "root";
-        $password = "";
-        $dbName = "test";
-        $link = mysqli_connect($host,$user,$password,$dbName)
-          or die (mysqli_error($link));
-          mysqli_query($link, "SET NAMES 'utf-8'");
-
-        // добавление
-        if (!empty($_POST)) {
-          $name = $_POST["name"];
-          $age = $_POST["age"];
-        	$salary = $_POST["salary"];
-
-        	$query = "INSERT INTO users SET name='$name', age='$age', salary='$salary'";
-        	mysqli_query($link, $query) or die(mysqli_error($link));
-        }
-
-        // Удаление по id (не подключен)
+        require "ConfigDB.php";
+        // удаление
         if (isset($_GET["dell"])) {
           $del = $_GET["dell"];
           $query = "DELETE FROM users WHERE id = $del";
@@ -42,7 +27,17 @@
            or die(mysqli_error($link));
         }
 
-        // Получение всех:
+        // добавление
+        if (!empty($_POST)) {
+          $name = $_POST["name"];
+          $age = $_POST["age"];
+          $salary = $_POST["salary"];
+          $exp = $_POST['еxpert'];
+          $query = "INSERT INTO users SET name='$name', age='$age', salary='$salary', еxpert='$exp' ";
+          mysqli_query($link, $query) or die(mysqli_error($link));
+        }
+
+        // Получение данных:
         $query = "SELECT * FROM users";
         $result = mysqli_query($link,$query) or die(mysqli_error($link));
         for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
@@ -54,12 +49,16 @@
             <th scope="col"> <?php echo $value['name']; ?> </th>
             <th scope="col"> <?php echo $value['age']; ?> </th>
             <th scope="col"> <?php echo $value['salary']; ?> </th>
-            <form action="" method="GET">
-              <th scope="col">
-                <button type="submit"  class="btn btn-danger" value="">Удалить</button>
-              </th>
-            </form>
+            <th scope="col"> <?php echo $value['еxpert']; ?> </th>
+            <th scope="col">
+              <form action="" method="GET">
+              <?php echo '<button type="submit" name="dell" value="'.$value['id'].'" class="btn btn-outline-danger">Удалить</button>'; ?>
+            </th>
+          </form>
+
+              </form>
           </tr>
+
           <?php
         }
           ?>
@@ -67,11 +66,30 @@
         </tr>
       </thead>
     </table>
-
     <br>
-    <form action="adduser.php" method="POST">
-      <button type="submit" class="btn btn-success">Добавить содрудника</button>
-    </form>
     </tr>
+    <h1>Добавление нового сотрудника</h1>
+    <br>
+     <form action="" method="POST">
+  <div class="row">
+    <div class="col">
+      <input type="text" name="name" class="form-control" placeholder="Имя"
+      value="<?php if (isset($_POST["name"])) echo $_POST['name']; ?>">
+    </div>
+    <div class="col">
+      <input type="number" name="age" class="form-control" placeholder="Возраст"
+      value="<?php if (isset($_POST["age"])) echo $_POST['age']; ?>">
+    </div>
+    <div class="col">
+      <input type="number" name="salary" class="form-control" placeholder="Зарплата"
+      value="<?php if (isset($_POST["salary"])) echo $_POST['salary']; ?>"><br>
+    </div>
+    <div class="col">
+      <input type="number" name="еxpert" class="form-control" placeholder="Стаж"
+      value="<?php if (isset($_POST["еxpert"])) echo $_POST['еxpert']; ?>"><br>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-outline-success">Подтвердить</button>
+</form>
   </body>
 </html>
