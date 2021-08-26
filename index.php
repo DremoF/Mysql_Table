@@ -19,22 +19,14 @@
 
         <?php
         require "ConfigDB.php";
+        require "func.php";
+
         // удаление
         if (isset($_GET["dell"])) {
           $del = $_GET["dell"];
           $query = "DELETE FROM users WHERE id = $del";
           mysqli_query($link,$query)
-           or die(mysqli_error($link));
-        }
-
-        // добавление
-        if (!empty($_POST)) {
-          $name = $_POST["name"];
-          $age = $_POST["age"];
-          $salary = $_POST["salary"];
-          $exp = $_POST['еxpert'];
-          $query = "INSERT INTO users SET name='$name', age='$age', salary='$salary', еxpert='$exp' ";
-          mysqli_query($link, $query) or die(mysqli_error($link));
+            or die(mysqli_error($link));
         }
 
         // Получение данных:
@@ -68,28 +60,17 @@
     </table>
     <br>
     </tr>
-    <h1>Добавление нового сотрудника</h1>
+      <h1>Добавление нового сотрудника</h1>
     <br>
-     <form action="" method="POST">
-  <div class="row">
-    <div class="col">
-      <input type="text" name="name" class="form-control" placeholder="Имя"
-      value="<?php if (isset($_POST["name"])) echo $_POST['name']; ?>">
-    </div>
-    <div class="col">
-      <input type="number" name="age" class="form-control" placeholder="Возраст"
-      value="<?php if (isset($_POST["age"])) echo $_POST['age']; ?>">
-    </div>
-    <div class="col">
-      <input type="number" name="salary" class="form-control" placeholder="Зарплата"
-      value="<?php if (isset($_POST["salary"])) echo $_POST['salary']; ?>"><br>
-    </div>
-    <div class="col">
-      <input type="number" name="еxpert" class="form-control" placeholder="Стаж"
-      value="<?php if (isset($_POST["еxpert"])) echo $_POST['еxpert']; ?>"><br>
-    </div>
-  </div>
-  <button type="submit" class="btn btn-outline-success">Подтвердить</button>
-</form>
+      <form action="" method="POST">
+        <div class="row">
+          <?php echo input('name'); ?>
+          <?php echo input('age'); ?>
+          <?php echo input('salary'); ?>
+          <?php echo input("еxpert"); ?>
+        </div>
+    <br>
+      <button type="submit" class="btn btn-outline-success">Подтвердить</button>
+    </form>
   </body>
 </html>
