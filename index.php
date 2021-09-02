@@ -21,13 +21,6 @@
         require "ConfigDB.php";
         require "func.php";
 
-        // удаление
-        if (isset($_GET["dell"])) {
-          $del = $_GET["dell"];
-          $query = "DELETE FROM users WHERE id = $del";
-          mysqli_query($link,$query)
-            or die(mysqli_error($link));
-        }
 
         // Получение данных:
         $query = "SELECT * FROM users";
@@ -64,10 +57,10 @@
     <br>
       <form action="" method="POST">
         <div class="row">
-          <?php echo input('name'); ?>
-          <?php echo input('age'); ?>
-          <?php echo input('salary'); ?>
-          <?php echo input("еxpert"); ?>
+          <? echo input('name'); ?>
+          <? echo input('age'); ?>
+          <? echo input('salary'); ?>
+          <? echo input("еxpert"); ?>
         </div>
     <br>
       <button type="submit" class="btn btn-outline-success">Подтвердить</button>

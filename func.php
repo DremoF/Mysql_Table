@@ -11,10 +11,18 @@ function input($name)
 		//var_dump($value);
 		return
     '<div class="col">
-      <input type="text" name="' . $name . '" class="form-control" placeholder = "' . $name . '"
+      <input type="text" required name="' . $name . '" class="form-control" placeholder = "' . $name . '"
       value="' . $value .'">
     </div>';
 	}
+
+
+	if (isset($_GET["dell"])) {
+		$del = $_GET["dell"];
+		$query = "DELETE FROM users WHERE id = $del";
+		mysqli_query($link,$query)
+		or die(mysqli_error($link));
+}
 
 	if (!empty($_POST)) {
 		$name = $_POST['name'];
