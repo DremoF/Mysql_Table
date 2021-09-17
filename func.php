@@ -8,7 +8,6 @@ function input($name)
 		} else {
 			$value = '';
 		}
-		//var_dump($value);
 		return
     '<div class="col">
       <input type="text" required name="' . $name . '" class="form-control" placeholder = "' . $name . '"
@@ -28,7 +27,7 @@ function input($name)
 		$name = $_POST['name'];
 		$age = $_POST['age'];
 		$salary = $_POST['salary'];
-    $еxpert = $_POST["еxpert"];
+    	$еxpert = $_POST["еxpert"];
 		$query = "INSERT INTO users SET name='$name', age='$age', salary='$salary', еxpert='$еxpert' ";
 		mysqli_query($link, $query) or die(mysqli_error($link));
 	}
